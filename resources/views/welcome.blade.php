@@ -3,13 +3,13 @@
 <div id="app">
     <div class="container">
         <div class="columns">
-            
+
       <hr style="padding-bottom: 10px;">
 
 <div class="column is-two-thirds">
-    <div class="field"> 
+    <div class="field">
           <div class="control">
-            <input class="input" type="text" placeholder="Text input" is-two-thirds>
+            <input class="input" type="text" placeholder="Text input" v-model="searched" />
              <p class="help">Search by package name</p>
         </div>
     </div>
@@ -27,10 +27,10 @@
 <div class="container" style="max-height: 60%">
 
 <div class="columns">
-    
+
     <div class="card">
   <div class="card-image">
-    
+
   </div>
   <div class="card-content">
     <div class="media">

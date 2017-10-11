@@ -9,29 +9,29 @@ new Vue ({
   components: { LineChart },
   data: {
     searched: '',
-    chartMetrics:[5,1,4],
-    chartLabels:[0,1,3],
+    chartMetrics:[],
+    chartLabels:[],
     period:'last-month',
     package:'',
     errorMessage:'',
     showError: false,
 
     collection: ''
-},
+  },
   methods:{
-    requestData() {
-     axios.get(`https://api.npmjs.org/downloads/range/${this.period}/${this.searched}`)
-      .then(response => {
-        this.chartMetrics = response.data.downloads.map(download=> download.downloads);
-        this.chartLabels = response.data.downloads.map(download => download.day);
-        this.package = response.data.package;
-        EventBus.fire('submitted');
-      })
-      .catch(err => {
-       this.errorMessage = err.response.data.error;
-       this.showError = true; 
-    });
-    console.log(() => 'hello world');
-    }}
-
-})
+     requestData() {
+      axios.get(`https://api.npmjs.org/downloads/range/${this.period}/${this.searched}`)
+       .then(response => {
+         console.log(response.data);
+         this.chartMetrics = response.data.downloads.map(download => download.downloads);
+         this.chartLabels = response.data.downloads.map(download => download.day);
+         this.package = response.data.package;
+         EventBus.fire('submitted', { chartMetrics: this.chartMetrics, chartLabels: this.chartLabels } );
+       })
+       .catch(err => {
+        this.errorMessage = err;
+        this.showError = true;
+     });
+     }
+  }
+});
